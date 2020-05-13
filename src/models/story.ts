@@ -5,8 +5,13 @@ export class Story {
   constructor(fields: any) {
     // Quick and dirty extend/assign fields to this model
     for (const f in fields) {
-      // @ts-ignore
-      this[f] = fields[f];
+      // Explicitly prepend the preamble of the literotica stories url path.
+      if (f === 'url') {
+        this.url = `https://literotica.com/s/${fields[f]}`;
+      } else {
+        // @ts-ignore
+        this[f] = fields[f];
+      }
     }
   }
 }
